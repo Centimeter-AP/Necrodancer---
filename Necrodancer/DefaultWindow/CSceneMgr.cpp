@@ -15,6 +15,7 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Set_Scene(SCENEID eID)
 {
+	// 여기서 페이드인 페이드아웃 적용
 	m_eCurScene = eID;
 
 	if (m_ePreScene != m_eCurScene)
@@ -35,8 +36,16 @@ void CSceneMgr::Set_Scene(SCENEID eID)
 			m_pScene = new CMyEdit;
 			break;
 
-		case SC_STAGE:
-			m_pScene = new CStage;
+		case SC_LOBBY:
+			m_pScene = new CLobby;
+			break;
+
+		case SC_STAGEONE:
+			m_pScene = new CStageOne;
+			break;
+
+		case SC_BOSS:
+			m_pScene = new CBossStage;
 			break;
 		}
 

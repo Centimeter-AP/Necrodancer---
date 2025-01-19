@@ -6,6 +6,10 @@
 #include "CMyMenu.h"
 #include "CStage.h"
 #include "CMyEdit.h"
+#include "CStageOne.h"
+#include "CLobby.h"
+#include "CBossStage.h"
+
 
 class CSceneMgr
 {
@@ -19,6 +23,7 @@ public:
 	void		Late_Update();
 	void		Render(HDC hDC);
 	void		Release();
+	SCENEID		Get_CurSceneID() { return m_eCurScene; }
 
 public:
 	static CSceneMgr* Get_Instance()

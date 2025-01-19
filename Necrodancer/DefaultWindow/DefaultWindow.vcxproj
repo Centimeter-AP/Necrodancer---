@@ -24,6 +24,7 @@
     <ProjectGuid>{79e7befc-f46c-464b-8ada-28a71a720c5a}</ProjectGuid>
     <RootNamespace>DefaultWindow</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>내거</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -70,6 +71,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -136,68 +141,182 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAbstractFactory.h" />
-    <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="CApple.h" />
+    <ClInclude Include="CArmor.h" />
+    <ClInclude Include="CArmorGi.h" />
+    <ClInclude Include="CBeatMgr.h" />
+    <ClInclude Include="CBedrock.h" />
+    <ClInclude Include="CBlueSlime.h" />
     <ClInclude Include="CBmpMgr.h" />
+    <ClInclude Include="CBossCutscene.h" />
+    <ClInclude Include="CBossStage.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCollisionMgr.h" />
+    <ClInclude Include="CCoralBrass.h" />
+    <ClInclude Include="CCoralDrum.h" />
+    <ClInclude Include="CCoralInst.h" />
+    <ClInclude Include="CCoralPiano.h" />
+    <ClInclude Include="CCoralRiffBoss.h" />
+    <ClInclude Include="CCoralViolin.h" />
+    <ClInclude Include="CDagger.h" />
+    <ClInclude Include="CDaggerEffect.h" />
+    <ClInclude Include="CDirtWall.h" />
+    <ClInclude Include="CDoor.h" />
+    <ClInclude Include="CDraw.h" />
+    <ClInclude Include="CDummy.h" />
+    <ClInclude Include="CEffect.h" />
+    <ClInclude Include="CGold.h" />
+    <ClInclude Include="CGoldenKey.h" />
     <ClInclude Include="CGuideBullet.h" />
+    <ClInclude Include="CHealing.h" />
+    <ClInclude Include="CHeartbeat.h" />
+    <ClInclude Include="CHitRed.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CLeftBar.h" />
+    <ClInclude Include="CLetterbox.h" />
     <ClInclude Include="CLine.h" />
     <ClInclude Include="CLineMgr.h" />
+    <ClInclude Include="CLobby.h" />
     <ClInclude Include="CLogo.h" />
+    <ClInclude Include="CMagicCheese.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMerchant.h" />
+    <ClInclude Include="CMissInputText.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CMonsterEffect.h" />
+    <ClInclude Include="CMonsterHP.h" />
     <ClInclude Include="CMouse.h" />
     <ClInclude Include="CMyBmp.h" />
     <ClInclude Include="CMyButton.h" />
     <ClInclude Include="CMyEdit.h" />
     <ClInclude Include="CMyMenu.h" />
+    <ClInclude Include="CNormalShovel.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjMgr.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="CPlayerArmorUI.h" />
+    <ClInclude Include="CPlayerHealingUI.h" />
+    <ClInclude Include="CPlayerHP.h" />
+    <ClInclude Include="CPlayerItemUI.h" />
+    <ClInclude Include="CPlayerMoney.h" />
+    <ClInclude Include="CPlayerShovelUI.h" />
+    <ClInclude Include="CPlayerWeaponUI.h" />
+    <ClInclude Include="CSarcophagus.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CScrewBullet.h" />
     <ClInclude Include="CScrollMgr.h" />
     <ClInclude Include="CShield.h" />
+    <ClInclude Include="CShopWall.h" />
+    <ClInclude Include="CShovel.h" />
+    <ClInclude Include="CSkeleton.h" />
+    <ClInclude Include="CSoundMgr.h" />
+    <ClInclude Include="CSplash.h" />
     <ClInclude Include="CStage.h" />
+    <ClInclude Include="CStageOne.h" />
+    <ClInclude Include="CStair.h" />
+    <ClInclude Include="CStoneWall.h" />
+    <ClInclude Include="CTauren.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileMgr.h" />
+    <ClInclude Include="CTitaniumShovel.h" />
+    <ClInclude Include="CVerticalDoor.h" />
+    <ClInclude Include="CWall.h" />
+    <ClInclude Include="CWaterTile.h" />
+    <ClInclude Include="CWeapon.h" />
     <ClInclude Include="DefaultWindow.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UIMgr.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAnimation.cpp" />
+    <ClCompile Include="CApple.cpp" />
+    <ClCompile Include="CArmor.cpp" />
+    <ClCompile Include="CArmorGi.cpp" />
+    <ClCompile Include="CBeatMgr.cpp" />
+    <ClCompile Include="CBedrock.cpp" />
+    <ClCompile Include="CBlueSlime.cpp" />
     <ClCompile Include="CBmpMgr.cpp" />
+    <ClCompile Include="CBossCutscene.cpp" />
+    <ClCompile Include="CBossStage.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
+    <ClCompile Include="CCoralBrass.cpp" />
+    <ClCompile Include="CCoralDrum.cpp" />
+    <ClCompile Include="CCoralInst.cpp" />
+    <ClCompile Include="CCoralPiano.cpp" />
+    <ClCompile Include="CCoralRiffBoss.cpp" />
+    <ClCompile Include="CCoralViolin.cpp" />
+    <ClCompile Include="CDagger.cpp" />
+    <ClCompile Include="CDaggerEffect.cpp" />
+    <ClCompile Include="CDirtWall.cpp" />
+    <ClCompile Include="CDoor.cpp" />
+    <ClCompile Include="CDummy.cpp" />
+    <ClCompile Include="CEffect.cpp" />
+    <ClCompile Include="CGold.cpp" />
+    <ClCompile Include="CGoldenKey.cpp" />
     <ClCompile Include="CGuideBullet.cpp" />
+    <ClCompile Include="CHealing.cpp" />
+    <ClCompile Include="CHeartbeat.cpp" />
+    <ClCompile Include="CHitRed.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CLeftBar.cpp" />
+    <ClCompile Include="CLetterbox.cpp" />
     <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CLineMgr.cpp" />
+    <ClCompile Include="CLobby.cpp" />
     <ClCompile Include="CLogo.cpp" />
+    <ClCompile Include="CMagicCheese.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMerchant.cpp" />
+    <ClCompile Include="CMissInputText.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CMonsterEffect.cpp" />
+    <ClCompile Include="CMonsterHP.cpp" />
     <ClCompile Include="CMouse.cpp" />
     <ClCompile Include="CMyBmp.cpp" />
     <ClCompile Include="CMyButton.cpp" />
     <ClCompile Include="CMyEdit.cpp" />
     <ClCompile Include="CMyMenu.cpp" />
+    <ClCompile Include="CNormalShovel.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
     <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="CPlayerArmorUI.cpp" />
+    <ClCompile Include="CPlayerHealingUI.cpp" />
+    <ClCompile Include="CPlayerHP.cpp" />
+    <ClCompile Include="CPlayerItemUI.cpp" />
+    <ClCompile Include="CPlayerMoney.cpp" />
+    <ClCompile Include="CPlayerShovelUI.cpp" />
+    <ClCompile Include="CPlayerWeaponUI.cpp" />
+    <ClCompile Include="CSarcophagus.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CScrewBullet.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />
     <ClCompile Include="CShield.cpp" />
+    <ClCompile Include="CShopWall.cpp" />
+    <ClCompile Include="CShovel.cpp" />
+    <ClCompile Include="CSkeleton.cpp" />
+    <ClCompile Include="CSoundMgr.cpp" />
+    <ClCompile Include="CSplash.cpp" />
     <ClCompile Include="CStage.cpp" />
+    <ClCompile Include="CStageOne.cpp" />
+    <ClCompile Include="CStair.cpp" />
+    <ClCompile Include="CStoneWall.cpp" />
+    <ClCompile Include="CTauren.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileMgr.cpp" />
+    <ClCompile Include="CTitaniumShovel.cpp" />
+    <ClCompile Include="CVerticalDoor.cpp" />
+    <ClCompile Include="CWall.cpp" />
+    <ClCompile Include="CWaterTile.cpp" />
+    <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="DefaultWindow.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -205,6 +324,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UIMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DefaultWindow.rc" />
@@ -212,6 +332,10 @@
   <ItemGroup>
     <Image Include="DefaultWindow.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="fmodL_vc.lib" />
+    <Library Include="fmod_vc.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

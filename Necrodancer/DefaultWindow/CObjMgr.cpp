@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CObjMgr.h"
 #include "CCollisionMgr.h"
+#include "CTileMgr.h"
+#include "CBeatMgr.h"
+#include "CItem.h"
+#include "CLeftBar.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -41,6 +45,87 @@ CObj* CObjMgr::Get_Target(OBJID eID, CObj* pDst)
 	return pTarget;
 }
 
+CObj* CObjMgr::Is_Item_Exist(float fx, float fy)
+{
+
+	if (!m_ObjList[OBJ_ITEM].empty())
+	{
+		auto iter = find_if(m_ObjList[OBJ_ITEM].begin(), m_ObjList[OBJ_ITEM].end(), [fx, fy](CObj* pItem) {return ((pItem->Get_Info().fX == fx) && (pItem->Get_Info().fY - 8 <= fy && pItem->Get_Info().fY >= fy)); });
+		// 8.f
+		if (iter == m_ObjList[OBJ_ITEM].end())
+			return nullptr;
+		else
+			return (*iter);
+	}
+	else
+		return nullptr;
+	//return false;
+}
+CObj* CObjMgr::Is_Item_Exist(int	_iTileIdx)
+{
+	if (!m_ObjList[OBJ_ITEM].empty())
+	{
+		auto iter = find_if(m_ObjList[OBJ_ITEM].begin(), m_ObjList[OBJ_ITEM].end(),
+			[_iTileIdx](CObj* pItem) {return (pItem->Get_TileIdx() == _iTileIdx); });		// TlqkftoRL
+		if (iter == m_ObjList[OBJ_ITEM].end())
+			return nullptr;
+		else
+			return (*iter);
+	}
+	else
+		return nullptr;
+	//return false;
+}
+
+CObj* CObjMgr::Is_Monster_Exist(float fx, float fy)
+{
+	if (!m_ObjList[OBJ_MONSTER].empty())
+	{
+		auto iter = find_if(m_ObjList[OBJ_MONSTER].begin(), m_ObjList[OBJ_MONSTER].end(),
+			[fx, fy](CObj* pItem) {return ((pItem->Get_Info().fX == fx) && (pItem->Get_Info().fY == fy)); });
+		if (iter == m_ObjList[OBJ_MONSTER].end())
+			return nullptr;
+		else
+			return (*iter);
+	}
+	else
+		return nullptr;
+}
+
+CObj* CObjMgr::Is_Monster_Exist(int	_iTileIdx)
+{
+	if (!m_ObjList[OBJ_MONSTER].empty())
+	{
+		auto iter = find_if(m_ObjList[OBJ_MONSTER].begin(), m_ObjList[OBJ_MONSTER].end(),
+			[_iTileIdx](CObj* pItem) {return (pItem->Get_TileIdx() == _iTileIdx); });
+		if (iter == m_ObjList[OBJ_MONSTER].end())
+			return nullptr;
+		else
+			return (*iter);
+	}
+	else
+		return nullptr;
+}
+
+void CObjMgr::Get_Item(CItem* _pItem)
+{
+
+}
+
+bool CObjMgr::Find_ifExist(OBJID eID, CObj* pObj)
+{
+	for (auto iter = m_ObjList[eID].begin(); iter != m_ObjList[eID].end(); ++iter)
+	{
+		if ((*iter) == pObj)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
 void CObjMgr::Add_Object(OBJID eID, CObj* pObj)
 {
 	if (OBJ_END <= eID || nullptr == pObj)
@@ -53,14 +138,46 @@ int CObjMgr::Update()
 {
 	for (size_t i = 0; i < OBJ_END; ++i)
 	{
+		if (i == OBJ_BUTTON)
+			BEATMGR->Set_ObjectAbleToMove(false);
 		for (auto iter = m_ObjList[i].begin();
 			iter != m_ObjList[i].end(); )
 		{
 			int iResult = (*iter)->Update();
 
+			//switch (i)
+			//{
+			//case OBJ_PLAYER:
+			//	break;
+			//case OBJ_MONSTER:
+			//	static_cast<CTile*>((*CTileMgr::Get_Instance()->Get_TileVec())[(*iter)->Find_MyTileIdx()])->Set_TileObj(TOBJ_ENTITY, (*iter));
+			//	break;
+			//case OBJ_WALL:
+			//	//static_cast<CTile*>((*CTileMgr::Get_Instance()->Get_TileVec())[(*iter)->Find_MyTileIdx()])->Set_TileObj(TOBJ_WALL, (*iter));
+			//	break;
+			//case OBJ_ITEM:
+			//{
+			//	//if ((*iter)->Find_MyTileIdx() != (*CTileMgr::Get_Instance()->Get_TileVec())[(*iter)->Get_TileIdx()]->Get_TileIdx())
+			//		static_cast<CTile*>((*CTileMgr::Get_Instance()->Get_TileVec())[(*iter)->Get_TileIdx()])->Set_TileObj(TOBJ_ITEM, (*iter));
+			//}
+			//
+			//	break;
+			//default:
+			//	break;
+			//}
+			if (OBJ_NEXTSCENE == iResult)
+			{
+				return 0;
+			}
+
 			if (OBJ_DEAD == iResult)
 			{
+				if (dynamic_cast<CLeftBar*>(*iter) != nullptr)
+				{
+					CBeatMgr::Get_Instance()->Delete_Bar((*iter));
+				}
 				Safe_Delete<CObj*>(*iter);
+				(*iter) = nullptr;
 				iter = m_ObjList[i].erase(iter);
 			}
 			else
@@ -86,11 +203,10 @@ void CObjMgr::Late_Update()
 			m_RenderList[eID].push_back(pObj);
 		}
 	}
-
-	////CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	//CCollisionMgr::Collision_Circle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	//CCollisionMgr::Collision_Circle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_MOUSE]);
-	//CCollisionMgr::Collision_RectEx(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER]);
+	for (auto& pWall : CTileMgr::Get_Instance()->Get_WallVec())
+	{
+		m_RenderList[RENDER_GAMEOBJECT].push_back(pWall);
+	}
 }
 
 void CObjMgr::Render(HDC hDC)
@@ -124,4 +240,32 @@ void CObjMgr::Delete_ID(OBJID eID)
 		Safe_Delete(pObj);
 
 	m_ObjList[eID].clear();
+}
+
+void CObjMgr::Delete_Object(OBJID eID, CObj* pObj)
+{
+	for (auto iter = m_ObjList[eID].begin(); iter != m_ObjList[eID].end(); ++iter)
+	{
+		if (pObj == (*iter))
+		{
+			iter = m_ObjList[eID].erase(iter);
+			return;
+		}
+	}
+}
+
+void CObjMgr::Delete_Map_Item()
+{
+	for (auto iter = m_ObjList[OBJ_ITEM].begin(); iter != m_ObjList[OBJ_ITEM].end();)
+	{
+		if (static_cast<CItem*>(*iter)->Get_OnMap() == true)
+		{
+			Safe_Delete<CObj*>((*iter));
+			iter = m_ObjList[OBJ_ITEM].erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
 }

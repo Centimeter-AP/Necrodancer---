@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CObj.h"
 
-CObj::CObj() : m_fSpeed(0.f), m_eDir(DIR_END), m_bDead(false), m_fAngle(0.f), m_fDistance(0.f), m_pTarget(nullptr), m_pImgKey(nullptr)
+CObj::CObj()
+	: m_fSpeed(0.f), m_eDir(DIR_END), m_bDead(false), m_fAngle(0.f)
+	, m_fDistance(0.f), m_pTarget(nullptr), m_pImgKey(nullptr)
+	, m_iHP(0), m_iMaxHP(0), m_iArmor(0), m_iTileIdx(0), m_iTileX(0), m_iTileY(0)
+	//, m_pvecTile(nullptr)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));
@@ -22,13 +26,13 @@ void CObj::Update_Rect()
 
 void CObj::Move_Frame()
 {
-	if (m_tFrame.dwTime + m_tFrame.dwSpeed < GetTickCount())
+	if (m_tFrame.dwTime + m_tFrame.dwSpeed < GetTickCount64())
 	{
 		++m_tFrame.iFrameStart;
 
 		if (m_tFrame.iFrameStart > m_tFrame.iFrameEnd)
 			m_tFrame.iFrameStart = 0;
 			
-		m_tFrame.dwTime = GetTickCount();
+		m_tFrame.dwTime = GetTickCount64();
 	}
 }

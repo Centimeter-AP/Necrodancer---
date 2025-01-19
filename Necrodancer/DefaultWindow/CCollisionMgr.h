@@ -13,5 +13,7 @@ public:
 
 	static void	Collision_RectEx(list<CObj*> _Dst, list<CObj*> _Src);
 	static bool	Check_Rect(CObj* _Dst, CObj* _Src, float* pX, float* pY);
+
+	//static void	Collision_Wall(CObj* _Shovel, )
 };
 
